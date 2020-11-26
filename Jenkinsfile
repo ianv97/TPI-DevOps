@@ -37,6 +37,7 @@ pipeline {
                         // }
                     }
                 }
+            }
         }
         stage('Test') {
             echo 'Here we would run the tests if we had them...'
@@ -59,7 +60,6 @@ pipeline {
         }
     }
 }
-
 
 // stage('Publish') {
 //     steps {
