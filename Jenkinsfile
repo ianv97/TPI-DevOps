@@ -4,7 +4,7 @@ pipeline {
         parallelsAlwaysFailFast()
     }
     environment {
-        kubernetesServer = "10.0.2.10"
+        kubernetesServer = "https://10.0.2.10:6443"
         kubernetesToken = credentials('kubectl')
         dockerhubUsername = "thelinkin3000"
     }
