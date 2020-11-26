@@ -12,11 +12,13 @@ pipeline {
         stage('Build') {
             parallel {
                 stage('back-end') {
-                    // agent {
-                        
-                    // }
+                    agent {
+                        docker {
+                            image 'docker'
+                        }
+                    }
                     steps {
-                        echo 'Building back-end...'
+                        // echo 'Building back-end...'
                         // container('docker') {
                         script {
                             webappBack = docker.build("ianv97/webapp-back", "./webapp-back")
@@ -26,8 +28,13 @@ pipeline {
                     }
                 }
                 stage('front-end') {
+                    agent {
+                        docker {
+                            image 'docker'
+                        }
+                    }
                     steps {
-                        echo 'Building front-end...'
+                        // echo 'Building front-end...'
                         // container('docker') {
                         script {
                             webappFront = docker.build("ianv97/webapp-front", "./webapp-front")
