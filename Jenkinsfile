@@ -41,6 +41,16 @@ pipeline {
                         }
                     }
                 }
+                stage('database') {
+                    steps {
+                        echo 'Updating database...'
+                        container('dotnet') {
+                            script {
+                                sh 'cd ./webapp-back && dotnet ef database update'
+                            }
+                        }
+                    }
+                }
             }
         }
         stage('Test') {
@@ -53,7 +63,6 @@ pipeline {
                 echo 'Deploying...'
                 container('kubectl') {
                     script {
-                        sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify get pods --all-namespaces'
                         sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify apply -f tp-devops.yml'
                     }
                 }
