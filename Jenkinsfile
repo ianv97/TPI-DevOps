@@ -11,7 +11,6 @@ pipeline {
     stages {
         stage('Build') {
             parallel {
-                failFast true
                 stage('back-end') {
                     // agent {
                         
@@ -20,7 +19,7 @@ pipeline {
                         echo 'Building back-end...'
                         // container('docker') {
                         //     script {
-                        def webappBack = docker.build("ianv97/webapp-back", "./webapp-back")
+                        webappBack = docker.build("ianv97/webapp-back", "./webapp-back")
                         webappBack.push('latest')
                         //     }
                         // }
@@ -31,7 +30,7 @@ pipeline {
                         echo 'Building front-end...'
                         // container('docker') {
                         //     script {
-                        def webappFront = docker.build("ianv97/webapp-front", "./webapp-front")
+                        webappFront = docker.build("ianv97/webapp-front", "./webapp-front")
                         webappFront.push('latest')
                         //     }
                         // }
