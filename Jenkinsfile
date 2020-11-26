@@ -1,5 +1,4 @@
 pipeline {
-    agent {label 'ci-cd'}
     options {
         parallelsAlwaysFailFast()
     }
@@ -13,6 +12,7 @@ pipeline {
         stage('Build') {
             parallel {
                 stage('back-end') {
+                    agent {label 'ci-cd'}
                     steps {
                         echo 'Building back-end...'
                         container('docker') {
@@ -25,11 +25,7 @@ pipeline {
                     }
                 }
                 stage('front-end') {
-                    agent {
-                        docker {
-                            image 'docker'
-                        }
-                    }
+                    agent {label 'ci-cd'}
                     steps {
                         echo 'Building front-end...'
                         container('docker') {
