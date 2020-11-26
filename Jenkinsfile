@@ -20,8 +20,8 @@ pipeline {
                         echo 'Building back-end...'
                         // container('docker') {
                         //     script {
-                        def webapp-back = docker.build("ianv97/webapp-back:${BUILD_NUMBER}", "./webapp-back")
-                        webapp-back.push('latest')
+                        def webappBack = docker.build("ianv97/webapp-back", "./webapp-back")
+                        webappBack.push('latest')
                         //     }
                         // }
                     }
@@ -31,8 +31,8 @@ pipeline {
                         echo 'Building front-end...'
                         // container('docker') {
                         //     script {
-                        def webapp-front = docker.build("ianv97/webapp-front:${BUILD_NUMBER}", "./webapp-front")
-                        webapp-back.push('latest')
+                        def webappFront = docker.build("ianv97/webapp-front", "./webapp-front")
+                        webappFront.push('latest')
                         //     }
                         // }
                     }
