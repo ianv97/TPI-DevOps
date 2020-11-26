@@ -5,7 +5,7 @@ pipeline {
     }
     environment {
         kubernetesServer = "10.0.2.10"
-        kubernetesToken = credentials('kubernetes-token')
+        kubernetesToken = credentials('kubectl')
         dockerhubUsername = "thelinkin3000"
     }
 
