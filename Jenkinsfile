@@ -17,9 +17,9 @@ pipeline {
                         echo 'Building back-end...'
                         container('docker') {
                             script {
-                                webapp-back = docker.build("${dockerhubUsername}/webapp-back:${BUILD_NUMBER}", "./webapp-back")
-                                webapp-back.push()
-                                webapp-back.push('latest')
+                                webappBack = docker.build("${dockerhubUsername}/webapp-back:${BUILD_NUMBER}", "./webapp-back")
+                                webappBack.push()
+                                webappBack.push('latest')
                             }
                         }
                     }
@@ -34,9 +34,9 @@ pipeline {
                         echo 'Building front-end...'
                         container('docker') {
                             script {
-                                webapp-front = docker.build("${dockerhubUsername}/webapp-front:${BUILD_NUMBER}", "./webapp-front")
-                                webapp-back.push()
-                                webapp-front.push('latest')
+                                webappFront = docker.build("${dockerhubUsername}/webapp-front:${BUILD_NUMBER}", "./webapp-front")
+                                webappFront.push()
+                                webappFront.push('latest')
                             }
                         }
                     }
