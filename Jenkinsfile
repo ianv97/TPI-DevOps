@@ -1,30 +1,27 @@
 pipeline {
-    agent any
+    agent {label 'ci-cd'}
     options {
         parallelsAlwaysFailFast()
     }
     environment {
         kubernetesServer = "10.0.3.10"
         kubernetesToken = credentials('kubernetes-token')
+        dockerhubUsername = "ianv97"
     }
 
     stages {
         stage('Build') {
             parallel {
                 stage('back-end') {
-                    agent {
-                        docker {
-                            image 'docker'
-                        }
-                    }
                     steps {
-                        // echo 'Building back-end...'
-                        // container('docker') {
-                        script {
-                            webappBack = docker.build("ianv97/webapp-back", "./webapp-back")
-                            webappBack.push('latest')
+                        echo 'Building back-end...'
+                        container('docker') {
+                            script {
+                                webapp-back = docker.build("${dockerhubUsername}/webapp-back:${BUILD_NUMBER}", "./webapp-back")
+                                webapp-back.push()
+                                webapp-back.push('latest')
+                            }
                         }
-                        // }
                     }
                 }
                 stage('front-end') {
@@ -34,13 +31,14 @@ pipeline {
                         }
                     }
                     steps {
-                        // echo 'Building front-end...'
-                        // container('docker') {
-                        script {
-                            webappFront = docker.build("ianv97/webapp-front", "./webapp-front")
-                            webappFront.push('latest')
+                        echo 'Building front-end...'
+                        container('docker') {
+                            script {
+                                webapp-front = docker.build("${dockerhubUsername}/webapp-front:${BUILD_NUMBER}", "./webapp-front")
+                                webapp-back.push()
+                                webapp-front.push('latest')
+                            }
                         }
-                        // }
                     }
                 }
             }
