@@ -7,6 +7,7 @@ pipeline {
         kubernetesServer = "https://10.0.2.10:6443"
         kubernetesToken = credentials('kubectl')
         dockerhubUsername = "thelinkin3000"
+        registryCredential = "dockerhub_id"
     }
 
     stages {
@@ -17,9 +18,11 @@ pipeline {
                         echo 'Building back-end...'
                         container('docker') {
                             script {
-                                webappBack = docker.build("${dockerhubUsername}/webapp-back:latest", "./webapp-back")
-                                // webappBack.push()
-                                // webappBack.push('latest')
+                                webappBack = docker.build("${dockerhubUsername}/webapp-back:${BUILD_NUMBER}", "./webapp-back")
+                                docker.withRegistry('', registryCredential) { 
+                                    webappBack.push()
+                                    webappBack.push('latest')
+                                }
                             }
                         }
                     }
@@ -29,9 +32,11 @@ pipeline {
                         echo 'Building front-end...'
                         container('docker') {
                             script {
-                                webappFront = docker.build("${dockerhubUsername}/webapp-front:latest", "./webapp-front")
-                                // webappFront.push()
-                                // webappFront.push('latest')
+                                webappFront = docker.build("${dockerhubUsername}/webapp-front:${BUILD_NUMBER}", "./webapp-front")
+                                docker.withRegistry('', registryCredential) {
+                                    webappFront.push()
+                                    webappFront.push('latest')
+                                }
                             }
                         }
                     }
