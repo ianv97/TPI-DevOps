@@ -141,7 +141,7 @@ spec:
         app: webapp-back
     spec:
       containers:
-        - image: ianv97/webapp-back
+        - image: thelinkin3000/webapp-back
           name: webapp-back
           env:
             - name: DB_HOST
@@ -202,7 +202,7 @@ spec:
         app: webapp-front
     spec:
       containers:
-        - image: ianv97/webapp-front
+        - image: thelinkin3000/webapp-front
           name: webapp-front
           env:
             - name: API_URL

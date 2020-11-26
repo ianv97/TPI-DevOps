@@ -1,19 +1,18 @@
 pipeline {
-    agent any
+    agent {label 'ci-cd'}
     options {
         parallelsAlwaysFailFast()
     }
     environment {
-        kubernetesServer = "10.0.3.10"
+        kubernetesServer = "10.0.2.10"
         kubernetesToken = credentials('kubernetes-token')
-        dockerhubUsername = "ianv97"
+        dockerhubUsername = "thelinkin3000"
     }
 
     stages {
         stage('Build') {
             parallel {
                 stage('back-end') {
-                    agent {label 'ci-cd'}
                     steps {
                         echo 'Building back-end...'
                         container('docker') {
@@ -26,7 +25,6 @@ pipeline {
                     }
                 }
                 stage('front-end') {
-                    agent {label 'ci-cd'}
                     steps {
                         echo 'Building front-end...'
                         container('docker') {
@@ -63,17 +61,3 @@ pipeline {
         }
     }
 }
-
-// stage('Publish') {
-//     steps {
-//         container('docker') {
-//             script {
-//                 docker.withRegistry('',registryCredentials){
-//                     dockerImage.push('latest')
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
