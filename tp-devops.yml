@@ -98,7 +98,7 @@ spec:
       volumes:
         - name: postgres-persistent-storage
           hostPath:
-            path: /home/ian/postgres
+            path: /home/devops/postgres
             type: Directory
 ---
 apiVersion: v1
@@ -142,6 +142,7 @@ spec:
     spec:
       containers:
         - image: thelinkin3000/webapp-back
+          imagePullPolicy: Always
           name: webapp-back
           env:
             - name: DB_HOST
@@ -203,6 +204,7 @@ spec:
     spec:
       containers:
         - image: thelinkin3000/webapp-front
+          imagePullPolicy: Always
           name: webapp-front
           env:
             - name: API_URL
