@@ -18,10 +18,10 @@ pipeline {
                     steps {
                         echo 'Building back-end...'
                         // container('docker') {
-                        //     script {
-                        webappBack = docker.build("ianv97/webapp-back", "./webapp-back")
-                        webappBack.push('latest')
-                        //     }
+                        script {
+                            webappBack = docker.build("ianv97/webapp-back", "./webapp-back")
+                            webappBack.push('latest')
+                        }
                         // }
                     }
                 }
@@ -29,17 +29,19 @@ pipeline {
                     steps {
                         echo 'Building front-end...'
                         // container('docker') {
-                        //     script {
-                        webappFront = docker.build("ianv97/webapp-front", "./webapp-front")
-                        webappFront.push('latest')
-                        //     }
+                        script {
+                            webappFront = docker.build("ianv97/webapp-front", "./webapp-front")
+                            webappFront.push('latest')
+                        }
                         // }
                     }
                 }
             }
         }
         stage('Test') {
-            echo 'Here we would run the tests if we had them...'
+            steps {
+                echo 'Here we would run the tests if we had them...'ç
+            }
         }
         stage('Deploy') {
             agent {
