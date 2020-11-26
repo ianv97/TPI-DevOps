@@ -18,8 +18,8 @@ pipeline {
                         container('docker') {
                             script {
                                 webappBack = docker.build("${dockerhubUsername}/webapp-back:${BUILD_NUMBER}", "./webapp-back")
-                                webappBack.push()
-                                webappBack.push('latest')
+                                // webappBack.push()
+                                // webappBack.push('latest')
                             }
                         }
                     }
@@ -30,8 +30,8 @@ pipeline {
                         container('docker') {
                             script {
                                 webappFront = docker.build("${dockerhubUsername}/webapp-front:${BUILD_NUMBER}", "./webapp-front")
-                                webappFront.push()
-                                webappFront.push('latest')
+                                // webappFront.push()
+                                // webappFront.push('latest')
                             }
                         }
                     }
