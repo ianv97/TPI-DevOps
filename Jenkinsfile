@@ -40,7 +40,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Here we would run the tests if we had them...'ç
+                echo 'Here we would run the tests if we had them...'
             }
         }
         stage('Deploy') {
