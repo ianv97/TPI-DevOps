@@ -17,7 +17,7 @@ pipeline {
                         echo 'Building back-end...'
                         container('docker') {
                             script {
-                                webappBack = docker.build("${dockerhubUsername}/webapp-back:${BUILD_NUMBER}", "./webapp-back")
+                                webappBack = docker.build("${dockerhubUsername}/webapp-back:latest", "./webapp-back")
                                 // webappBack.push()
                                 // webappBack.push('latest')
                             }
@@ -29,7 +29,7 @@ pipeline {
                         echo 'Building front-end...'
                         container('docker') {
                             script {
-                                webappFront = docker.build("${dockerhubUsername}/webapp-front:${BUILD_NUMBER}", "./webapp-front")
+                                webappFront = docker.build("${dockerhubUsername}/webapp-front:latest", "./webapp-front")
                                 // webappFront.push()
                                 // webappFront.push('latest')
                             }
@@ -44,19 +44,14 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent {
-                docker {
-                    image 'ianv97/kubectl'
-                }
-            }
             steps {
                 echo 'Deploying...'
-                // container('kubectl') {
-                //     script {
-                sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify get pods --all-namespaces'
-                sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify apply -f tp-devops.yml'
-                //     }
-                // }
+                container('kubectl') {
+                    script {
+                        sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify get pods --all-namespaces'
+                        sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify apply -f tp-devops.yml'
+                    }
+                }
             }
         }
     }
