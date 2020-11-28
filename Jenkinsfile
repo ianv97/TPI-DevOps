@@ -12,7 +12,7 @@ pipeline {
 		db_user = credentials('db_user')
 		db_pass = credentials('db_pass')
 		db_db = credentials('db_db')				
-		db_host = "${env.BRANCH_NAME == 'main' ? credentials('db_host_prod') : credentials('db_host_dev')}"
+		db_host = ${env.BRANCH_NAME == 'main' ? credentials('db_host_prod') : credentials('db_host_dev')}
     }
 
     stages {
