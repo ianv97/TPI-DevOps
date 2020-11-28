@@ -7,8 +7,6 @@ using GestionDeMedicamentos.Services;
 
 namespace GestionDeMedicamentos.Controllers
 {
-    [Route("api/drogas")]
-    [ApiController]
     public class DrugsController : ControllerBase
     {
         private readonly IDrugRepository _drugRepository;
@@ -45,7 +43,7 @@ namespace GestionDeMedicamentos.Controllers
 
             var drug = await _drugRepository.FindAsync(id);
 
-            if (drug == null)
+                if (drug == null)
             {
                 return NotFound();
             }
@@ -123,7 +121,5 @@ namespace GestionDeMedicamentos.Controllers
 
             return Ok(drug);
         }
-
-
     }
 }

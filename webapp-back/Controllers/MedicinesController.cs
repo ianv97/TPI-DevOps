@@ -7,8 +7,6 @@ using GestionDeMedicamentos.Services;
 
 namespace GestionDeMedicamentos.Controllers
 {
-    [Route("api/medicamentos")]
-    [ApiController]
     public class MedicinesController : ControllerBase
     {
         private readonly IMedicineRepository _medicineRepository;
