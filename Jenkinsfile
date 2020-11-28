@@ -65,7 +65,8 @@ pipeline {
                         // migrationsList = sh(script: 'dotnet ef migrations list', returnStdout: true)
                         // echo 'Migrations: ${migrationsList}'
                         // sh 'dotnet ef database update'
-                        sh 'cd ./webapp-back && dotnet ef migrations list && dotnet ef database update'
+
+                        sh 'set ENV_TEST_VALUE=test && cd ./webapp-back && dotnet ef migrations list && dotnet ef database update'
                     }
                 }
             }
