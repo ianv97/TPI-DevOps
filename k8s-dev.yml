@@ -154,6 +154,11 @@ spec:
                 secretKeyRef:
                   name: db-credentials
                   key: POSTGRES_PASSWORD
+            - name: HOST_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: endpoints
+                  key: HOST_ENV
           ports:
             - containerPort: 80
               name: webapp-back
@@ -209,3 +214,4 @@ data:
   API_URL: 'http://localhost:3500/dev/api/'
   DB_HOST: '10.96.0.101'
   DB_PORT: '5432'
+  HOST_ENV: 'dev'
