@@ -64,11 +64,11 @@ namespace GestiónDeMedicamentos
             var template = "";
             if(environment == "prod")
             {
-                template = "prod/{controller}/{action=Index}/{id?}";
+                template = "prod/api/{controller}/{action=Index}/{id?}";
             }
             else if(environment == "dev")
             {
-                template = "dev/{controller}/{action=Index}/{id?}";
+                template = "dev/api/{controller}/{action=Index}/{id?}";
             }
             app.UseMvc(routes =>
             {
