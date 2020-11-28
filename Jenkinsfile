@@ -12,7 +12,8 @@ pipeline {
 		db_user = credentials('db_user')
 		db_pass = credentials('db_pass')
 		db_db = credentials('db_db')				
-		db_host = ${env.BRANCH_NAME == 'main' ? credentials('db_host_prod') : credentials('db_host_dev')}
+		db_host_prod = credentials('db_host_prod')
+		db_host_dev = credentials('db_host_dev')
     }
 
     stages {
@@ -65,8 +66,13 @@ pipeline {
             steps {
                 echo 'Updating database...'
                 container('dotnet') {
+				
                     script {
-                        sh 'cd ./webapp-back && dotnet ef migrations list && DB_HOST=${db_host} DB_PORT=${db_port} POSTGRES_USER=${db_user} POSTGRES_PASSWORD=${db_pass} POSTGRES_DB=${db_db} dotnet ef database update'
+						if (env.BRANCH_NAME == 'main') {
+							sh 'cd ./webapp-back && dotnet ef migrations list && DB_HOST=${db_host_prod} DB_PORT=${db_port} POSTGRES_USER=${db_user} POSTGRES_PASSWORD=${db_pass} POSTGRES_DB=${db_db} dotnet ef database update'
+						} else {
+							sh 'cd ./webapp-back && dotnet ef migrations list && DB_HOST=${db_host_dev} DB_PORT=${db_port} POSTGRES_USER=${db_user} POSTGRES_PASSWORD=${db_pass} POSTGRES_DB=${db_db} dotnet ef database update'
+                        }
                     }
                 }
             }
