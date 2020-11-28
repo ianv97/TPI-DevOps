@@ -37,7 +37,7 @@ spec:
     - port: 5432
   selector:
     app: postgres
-  clusterIP: 11.11.11.11
+  clusterIP: 10.96.0.100
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -207,5 +207,5 @@ metadata:
   name: endpoints
 data:
   API_URL: 'http://localhost:3500/prod/api/'
-  DB_HOST: '11.11.11.11'
+  DB_HOST: '10.96.0.100'
   DB_PORT: '5432'

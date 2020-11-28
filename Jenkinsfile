@@ -8,6 +8,16 @@ pipeline {
         kubernetesToken = credentials('kubectl')
         dockerhubUsername = "thelinkin3000"
         registryCredential = "dockerhub_id"
+		db_port = credentials('db_port')
+		db_user = credentials('db_user')
+		db_pass = credentials('db_pass')
+		db_db = credentials('db_db')
+		if (env.BRANCH_NAME == 'main') {
+			db_host = credentials('db_host_prod')
+		}
+		if (env.BRANCH_NAME == 'dev') {
+			db_host = credentials('db_host_dev')
+		}
     }
 
     stages {
@@ -61,7 +71,7 @@ pipeline {
                 echo 'Updating database...'
                 container('dotnet') {
                     script {
-                        sh 'cd ./webapp-back && dotnet ef migrations list && DB_HOST="10.110.110.10" dotnet ef database update'
+                        sh 'cd ./webapp-back && dotnet ef migrations list && DB_HOST=${db_host} DB_PORT=${db_port} POSTGRES_USER=${db_user} POSTGRES_PASSWORD=${db_pass} POSTGRES_DB=${db_db} dotnet ef database update'
                     }
                 }
             }
