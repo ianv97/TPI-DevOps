@@ -61,12 +61,7 @@ pipeline {
                 echo 'Updating database...'
                 container('dotnet') {
                     script {
-                        // sh 'cd ./webapp-back'
-                        // migrationsList = sh(script: 'dotnet ef migrations list', returnStdout: true)
-                        // echo 'Migrations: ${migrationsList}'
-                        // sh 'dotnet ef database update'
-
-                        sh 'set ENV_TEST_VALUE=test && cd ./webapp-back && dotnet ef migrations list && dotnet ef database update'
+                        sh 'set DB_HOST="10.110.110.10" && cd ./webapp-back && dotnet ef migrations list && dotnet ef database update'
                     }
                 }
             }
