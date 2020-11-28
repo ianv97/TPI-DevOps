@@ -60,7 +60,7 @@ namespace GestiónDeMedicamentos
             app.UseStaticFiles();
 
             app.UseCors("AllowOrigin"); //Debe estar antes de UseMvc
-            var environment = Environment.GetEnvironmentVariable("env_run");
+            var environment = Environment.GetEnvironmentVariable("ENV_RUN");
             var templateString = "";
             if(environment == "prod")
             {

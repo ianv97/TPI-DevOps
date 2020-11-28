@@ -209,3 +209,4 @@ data:
   API_URL: 'http://localhost:3500/prod/api/'
   DB_HOST: '10.96.0.100'
   DB_PORT: '5432'
+  env_run: 'prod'
