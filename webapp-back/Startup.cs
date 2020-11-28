@@ -60,12 +60,22 @@ namespace GestiónDeMedicamentos
             app.UseStaticFiles();
 
             app.UseCors("AllowOrigin"); //Debe estar antes de UseMvc
-
+            var environment = Environment.GetEnvironmentVariable("env_run");
+            var templateString = "";
+            if(environment == "prod")
+            {
+                templateString = "/prod/api/{controller}/{action=Index}/{id?}";
+            }
+            else if(environment == "dev")
+            {
+                templateString = "/dev/api/{controller}/{action=Index}/{id?}";
+            }
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    //template: "{controller}/{action=Index}/{id?}");
+                    template: templateString);
             });
         }
     }

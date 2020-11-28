@@ -7,12 +7,11 @@ using GestionDeMedicamentos.Services;
 
 namespace GestionDeMedicamentos.Controllers
 {
-    [Route("api/drogas")]
     [ApiController]
     public class DrugsController : ControllerBase
     {
         private readonly IDrugRepository _drugRepository;
-
+        
         public DrugsController(IDrugRepository drugRepository)
         {
             _drugRepository = drugRepository;
