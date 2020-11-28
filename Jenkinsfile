@@ -84,10 +84,14 @@ pipeline {
                     script {
                         if (env.BRANCH_NAME == 'main') {
                             sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify apply -f k8s-prod.yml'
+							sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify rollout restart deployment/webapp-back  -n tp-devops-prod'
+							sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify rollout restart deployment/webapp-front -n tp-devops-prod'
                         } else {
                             sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify apply -f k8s-dev.yml'
+							sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify rollout restart deployment/webapp-back  -n tp-devops-dev'
+							sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify rollout restart deployment/webapp-front -n tp-devops-dev'
                         }
-                        sh 'kubectl --server=${kubernetesServer} --token=${kubernetesToken} --insecure-skip-tls-verify rollout restart'
+                        
                     }
                 }
             }
