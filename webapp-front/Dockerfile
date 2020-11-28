@@ -9,5 +9,5 @@ RUN npm install
 RUN npm run-script build
 
 FROM base as final
-COPY --from=build /app/build /build
-CMD serve -s build
+COPY --from=build /app/build .
+CMD serve
