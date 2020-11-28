@@ -8,7 +8,11 @@ pipeline {
         kubernetesToken = credentials('kubectl')
         dockerhubUsername = "thelinkin3000"
         registryCredential = "dockerhub_id"
-		
+		db_port = credentials('db_port')
+		db_user = credentials('db_user')
+		db_pass = credentials('db_pass')
+		db_db = credentials('db_db')				
+		db_host = "${env.BRANCH_NAME == 'main' ? credentials('db_host_prod') : credentials('db_host_dev')}"
     }
 
     stages {
@@ -58,27 +62,6 @@ pipeline {
             }
         }
         stage('Database-migration') {
-			if (env.BRANCH_NAME == 'main') {
-					environment{
-						db_port = credentials('db_port')
-						db_user = credentials('db_user')
-						db_pass = credentials('db_pass')
-						db_db = credentials('db_db')				
-						db_host = credentials('db_host_prod')
-					}
-			}
-			if (env.BRANCH_NAME == 'dev') {
-					environment{
-						db_port = credentials('db_port')
-						db_user = credentials('db_user')
-						db_pass = credentials('db_pass')
-						db_db = credentials('db_db')				
-						db_host = credentials('db_host_dev')
-					}
-			}
-
-		
-		
             steps {
                 echo 'Updating database...'
                 container('dotnet') {
