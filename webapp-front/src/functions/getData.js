@@ -8,49 +8,49 @@ export default async function getData() {
 
     if (this.state.search.id) {
       apiUrl =
-        window.ApiUrl + this.state.currentUrl + "/" + this.state.search.id;
+        window.ApiUrl + this.state.currentUrl + '/get' + this.state.currentUrl + '/' + this.state.search.id;
     } else {
       apiUrl =
         window.ApiUrl +
         this.state.currentUrl +
-        "?order=" +
+        '/get' +
+        this.state.currentUrl +
+        '?order=' +
         this.state.order +
-        "&pageSize=" +
+        '&pageSize=' +
         this.state.pageSize +
-        "&pageNumber=" +
+        '&pageNumber=' +
         this.state.pageNumber;
       if (this.state.searchString) {
         apiUrl += this.state.searchString;
       }
     }
     await fetch(apiUrl, {
-      signal: this.abortController.signal
+      signal: this.abortController.signal,
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           this.setState({
-            page: response.headers.get("page"),
-            totalRecords: parseInt(response.headers.get("totalRecords"))
+            page: response.headers.get('page'),
+            totalRecords: parseInt(response.headers.get('totalRecords')),
           });
           return response.json();
         } else {
-          throw Error(response.status + " " + response.statusText);
+          throw Error(response.status + ' ' + response.statusText);
         }
       })
-      .then(data => {
+      .then((data) => {
         if (!Array.isArray(data)) {
           data = [data];
         }
-        data.forEach(entity => {
+        data.forEach((entity) => {
           tempDisplayData = [];
           // eslint-disable-next-line
-          this.state.titles.forEach(value =>
-            tempDisplayData.push([eval("entity." + value[1])])
-          );
+          this.state.titles.forEach((value) => tempDisplayData.push([eval('entity.' + value[1])]));
           displayData.push(tempDisplayData);
         });
         this.setState({
-          data: displayData
+          data: displayData,
         });
       });
   } catch (error) {

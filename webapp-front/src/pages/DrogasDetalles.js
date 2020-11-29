@@ -1,17 +1,17 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import ButtonsRow from "../components/ButtonsRow";
-import changeMode from "../functions/changeMode";
-import handleSubmit from "../functions/handleSubmit";
-import handleChange from "../functions/handleChange";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import ButtonsRow from '../components/ButtonsRow';
+import changeMode from '../functions/changeMode';
+import handleSubmit from '../functions/handleSubmit';
+import handleChange from '../functions/handleChange';
 
 class DrogasDetalles extends React.Component {
   state = {
-    currentUrl: "drogas",
-    mode: "read",
+    currentUrl: 'drugs',
+    mode: 'read',
     loading: false,
-    form: { id: 0, name: "" }
+    form: { id: 0, name: '' },
   };
   changeMode = changeMode.bind(this);
   handleSubmit = handleSubmit.bind(this);
@@ -19,26 +19,31 @@ class DrogasDetalles extends React.Component {
 
   async getData() {
     const response = await fetch(
-      window.ApiUrl + this.state.currentUrl + "/" + this.props.match.params.id
+      window.ApiUrl +
+        this.state.currentUrl +
+        '/get' +
+        this.state.currentUrl.slice(0, -1) +
+        '/' +
+        this.props.match.params.id
     );
     const data = await response.json();
     this.setState({
       form: {
         id: data.id,
-        name: data.name
-      }
+        name: data.name,
+      },
     });
   }
 
   componentDidMount() {
-    if (this.props.match.params.id !== "añadir") {
+    if (this.props.match.params.id !== 'añadir') {
       this.getData();
     }
     this.changeMode();
   }
 
   componentDidUpdate() {
-    this.props.history.listen(location => this.changeMode());
+    this.props.history.listen((location) => this.changeMode());
   }
 
   render() {
@@ -51,7 +56,7 @@ class DrogasDetalles extends React.Component {
             </Grid>
           </Grid>
           <form onSubmit={this.handleSubmit}>
-            {this.state.mode !== "create" && (
+            {this.state.mode !== 'create' && (
               <Grid container direction="row" justify="center" className="mt-3">
                 <Grid item>
                   <TextField
@@ -76,8 +81,7 @@ class DrogasDetalles extends React.Component {
                   onChange={this.handleChange}
                   value={this.state.form.name}
                   InputProps={{
-                    readOnly:
-                      this.state.mode === "read" || this.state.mode === "delete"
+                    readOnly: this.state.mode === 'read' || this.state.mode === 'delete',
                   }}
                 />
               </Grid>

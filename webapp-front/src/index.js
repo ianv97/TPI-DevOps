@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 
-window.ApiUrl = 'http://localhost:3500/api/';
+window.ApiUrl = process.env.REACT_APP_API_URL;
+console.log(process.env);
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -1,13 +1,10 @@
-FROM node as base
-WORKDIR /app
-RUN npm install -g serve
-
 FROM node as build
 WORKDIR /app
 COPY . .
+ARG STAGE
 RUN npm install
-RUN npm run-script build
+RUN npm run-script build:${STAGE}
 
-FROM base as final
-COPY --from=build /app/build .
-CMD serve
+FROM nginx as final
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf

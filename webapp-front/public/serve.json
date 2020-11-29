@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "dev/**", "destination": "/index.html" },
-    { "source": "prod/**", "destination": "/index.html" }
-  ]
-}

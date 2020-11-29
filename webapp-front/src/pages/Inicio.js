@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 class Inicio extends React.Component {
   render() {
-    return <h1>Hospital de niños - Gestión de medicamentos</h1>;
+    return <h1>Gestión de medicamentos</h1>;
   }
 }
 

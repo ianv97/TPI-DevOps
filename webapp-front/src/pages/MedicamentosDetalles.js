@@ -1,35 +1,35 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import Button from "@material-ui/core/Button";
-import ButtonsRow from "../components/ButtonsRow";
-import changeMode from "../functions/changeMode";
-import handleSubmit from "../functions/handleSubmit";
-import handleChange from "../functions/handleChange";
-import RelationshipModal from "../components/RelationshipModal";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Button from '@material-ui/core/Button';
+import ButtonsRow from '../components/ButtonsRow';
+import changeMode from '../functions/changeMode';
+import handleSubmit from '../functions/handleSubmit';
+import handleChange from '../functions/handleChange';
+import RelationshipModal from '../components/RelationshipModal';
 
 class MedicamentosDetalles extends React.Component {
   state = {
-    currentUrl: "medicamentos",
-    mode: "read",
+    currentUrl: 'medicines',
+    mode: 'read',
     loading: false,
     form: {
       id: 0,
-      name: "",
-      drugId: "",
-      drugName: "",
+      name: '',
+      drugId: '',
+      drugName: '',
       proportion: 0,
-      presentation: "",
-      laboratory: "",
-      stock: 0
+      presentation: '',
+      laboratory: '',
+      stock: 0,
     },
     drugs: [],
-    modalShow: false
+    modalShow: false,
   };
 
   changeMode = changeMode.bind(this);
@@ -38,7 +38,12 @@ class MedicamentosDetalles extends React.Component {
 
   async getData() {
     const response = await fetch(
-      window.ApiUrl + this.state.currentUrl + "/" + this.props.match.params.id
+      window.ApiUrl +
+        this.state.currentUrl +
+        '/get' +
+        this.state.currentUrl.slice(0, -1) +
+        '/' +
+        this.props.match.params.id
     );
     const data = await response.json();
     this.setState({
@@ -50,8 +55,8 @@ class MedicamentosDetalles extends React.Component {
         proportion: data.proportion,
         presentation: data.presentation,
         laboratory: data.laboratory,
-        stock: data.stock
-      }
+        stock: data.stock,
+      },
     });
   }
 
@@ -61,20 +66,20 @@ class MedicamentosDetalles extends React.Component {
       form: {
         ...this.state.form,
         drugId: id,
-        drugName: name
-      }
+        drugName: name,
+      },
     });
   };
 
   componentDidMount() {
-    if (this.props.match.params.id !== "añadir") {
+    if (this.props.match.params.id !== 'añadir') {
       this.getData();
     }
     this.changeMode();
   }
 
   componentDidUpdate() {
-    this.props.history.listen(location => this.changeMode());
+    this.props.history.listen((location) => this.changeMode());
   }
 
   render() {
@@ -88,7 +93,7 @@ class MedicamentosDetalles extends React.Component {
           </Grid>
 
           <form onSubmit={this.handleSubmit}>
-            {this.state.mode !== "create" && (
+            {this.state.mode !== 'create' && (
               <Grid container direction="row" justify="center" spacing={5}>
                 <Grid item>
                   <TextField
@@ -114,8 +119,7 @@ class MedicamentosDetalles extends React.Component {
                   onChange={this.handleChange}
                   value={this.state.form.name}
                   InputProps={{
-                    readOnly:
-                      this.state.mode === "read" || this.state.mode === "delete"
+                    readOnly: this.state.mode === 'read' || this.state.mode === 'delete',
                   }}
                 />
               </Grid>
@@ -128,8 +132,7 @@ class MedicamentosDetalles extends React.Component {
                   onChange={this.handleChange}
                   value={this.state.form.laboratory}
                   InputProps={{
-                    readOnly:
-                      this.state.mode === "read" || this.state.mode === "delete"
+                    readOnly: this.state.mode === 'read' || this.state.mode === 'delete',
                   }}
                 />
               </Grid>
@@ -146,13 +149,11 @@ class MedicamentosDetalles extends React.Component {
                   value={this.state.form.drugName}
                   style={{ width: 145 }}
                   InputProps={{
-                    readOnly: true
+                    readOnly: true,
                   }}
                 />
                 <Button
-                  disabled={
-                    this.state.mode === "read" || this.state.mode === "delete"
-                  }
+                  disabled={this.state.mode === 'read' || this.state.mode === 'delete'}
                   className="mt-1 px-0"
                   size="large"
                   variant="contained"
@@ -165,7 +166,7 @@ class MedicamentosDetalles extends React.Component {
               <RelationshipModal
                 show={this.state.modalShow}
                 onHide={() => this.setState({ modalShow: false })}
-                entity={"Drogas"}
+                entity={'Drogas'}
                 history={this.props.history}
                 selectRelation={this.selectRelation}
               />
@@ -180,8 +181,7 @@ class MedicamentosDetalles extends React.Component {
                   value={this.state.form.proportion}
                   InputProps={{
                     inputProps: { min: 0 },
-                    readOnly:
-                      this.state.mode === "read" || this.state.mode === "delete"
+                    readOnly: this.state.mode === 'read' || this.state.mode === 'delete',
                   }}
                 />
               </Grid>
@@ -189,11 +189,7 @@ class MedicamentosDetalles extends React.Component {
 
             <Grid container direction="row" justify="center" spacing={5}>
               <Grid item className="mt-3">
-                <FormControl
-                  required
-                  variant="outlined"
-                  style={{ minWidth: 210 }}
-                >
+                <FormControl required variant="outlined" style={{ minWidth: 210 }}>
                   <InputLabel htmlFor="presentation">Presentación</InputLabel>
                   <Select
                     id="presentation"
@@ -202,9 +198,7 @@ class MedicamentosDetalles extends React.Component {
                     value={this.state.form.presentation}
                     input={<OutlinedInput labelWidth={105} />}
                     inputProps={{
-                      readOnly:
-                        this.state.mode === "read" ||
-                        this.state.mode === "delete"
+                      readOnly: this.state.mode === 'read' || this.state.mode === 'delete',
                     }}
                   >
                     <MenuItem value="Inyectable">Inyectable</MenuItem>
@@ -223,7 +217,7 @@ class MedicamentosDetalles extends React.Component {
                   onChange={this.handleChange}
                   value={this.state.form.stock}
                   InputProps={{
-                    readOnly: true
+                    readOnly: true,
                   }}
                 />
               </Grid>

@@ -82,7 +82,7 @@ spec:
       volumes:
         - name: postgres-persistent-storage
           hostPath:
-            path: /home/devops/postgres
+            path: /home/devops/postgres-prod
             type: Directory
 ---
 apiVersion: v1
@@ -172,7 +172,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5000
+      targetPort: 80
   selector:
     app: webapp-front
 ---
@@ -195,14 +195,8 @@ spec:
         - image: thelinkin3000/webapp-front:latest
           imagePullPolicy: Always
           name: webapp-front
-          env:
-            - name: API_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: endpoints
-                  key: API_URL
           ports:
-            - containerPort: 5000
+            - containerPort: 80
               name: webapp-front
 ---
 apiVersion: v1
@@ -211,7 +205,6 @@ metadata:
   namespace: tp-devops-prod
   name: endpoints
 data:
-  API_URL: 'http://localhost:3500/prod/api/'
   DB_HOST: '10.96.0.100'
   DB_PORT: '5432'
   HOST_ENV: 'prod'

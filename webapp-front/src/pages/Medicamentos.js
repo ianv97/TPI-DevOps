@@ -1,25 +1,25 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import { Link } from "react-router-dom";
-import MaterialTable from "../components/MaterialTable.js";
-import handleSearch from "../functions/handleSearch";
-import handleChangePage from "../functions/handleChangePage";
-import handleChangeRowsPerPage from "../functions/handleChangeRowsPerPage";
-import getData from "../functions/getData";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import { Link } from 'react-router-dom';
+import MaterialTable from '../components/MaterialTable.js';
+import handleSearch from '../functions/handleSearch';
+import handleChangePage from '../functions/handleChangePage';
+import handleChangeRowsPerPage from '../functions/handleChangeRowsPerPage';
+import getData from '../functions/getData';
 
 class Medicamentos extends React.Component {
   state = {
-    currentUrl: "medicamentos",
+    currentUrl: 'medicines',
     titles: [
-      ["ID", "id"],
-      ["Nombre", "name"],
-      ["Droga", "drug.name"],
-      ["Proporción (mg)", "proportion"],
-      ["Presentación", "presentation"],
-      ["Laboratorio", "laboratory"],
-      ["En Stock", "stock"]
+      ['ID', 'id'],
+      ['Nombre', 'name'],
+      ['Droga', 'drug.name'],
+      ['Proporción (mg)', 'proportion'],
+      ['Presentación', 'presentation'],
+      ['Laboratorio', 'laboratory'],
+      ['En Stock', 'stock'],
     ],
     loading: true,
     error: null,
@@ -27,16 +27,16 @@ class Medicamentos extends React.Component {
     pageSize: 5,
     pageNumber: 1,
     totalRecords: 0,
-    order: "name",
+    order: 'name',
     search: {
-      id: "",
-      name: "",
-      drug: "",
-      proportion: "",
-      presentation: "",
-      laboratory: ""
+      id: '',
+      name: '',
+      drug: '',
+      proportion: '',
+      presentation: '',
+      laboratory: '',
     },
-    searchString: ""
+    searchString: '',
   };
 
   abortController = new AbortController();
@@ -50,8 +50,8 @@ class Medicamentos extends React.Component {
   }
 
   componentDidUpdate() {
-    this.props.history.listen(location => {
-      location.pathname === "/" + this.state.currentUrl && this.getData();
+    this.props.history.listen((location) => {
+      location.pathname === '/' + this.state.currentUrl && this.getData();
     });
   }
 
@@ -67,7 +67,7 @@ class Medicamentos extends React.Component {
             <h1>Medicamentos</h1>
           </Grid>
           <Grid item>
-            <Link to={"/" + this.state.currentUrl + "/añadir"}>
+            <Link to={'/' + this.state.currentUrl + '/añadir'}>
               <Fab color="primary" size="medium">
                 <AddIcon />
               </Fab>

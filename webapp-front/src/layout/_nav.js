@@ -1,24 +1,24 @@
 export default {
   items: [
     {
-      name: "Inicio",
-      url: "/inicio",
-      icon: "fas fa-home"
+      name: 'Inicio',
+      url: '/',
+      icon: 'fas fa-home',
     },
     {
       title: true,
-      name: "Hospital",
-      class: "text-center"
+      name: 'Hospital',
+      class: 'text-center',
     },
     {
-      name: "Drogas",
-      url: "/drogas",
-      icon: "fas fa-prescription-bottle-alt"
+      name: 'Drogas',
+      url: '/drugs',
+      icon: 'fas fa-prescription-bottle-alt',
     },
     {
-      name: "Medicamentos",
-      url: "/medicamentos",
-      icon: "fas fa-pills"
-    }
-  ]
+      name: 'Medicamentos',
+      url: '/medicines',
+      icon: 'fas fa-pills',
+    },
+  ],
 };
