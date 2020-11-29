@@ -61,15 +61,15 @@ namespace GestiónDeMedicamentos
 
             app.UseCors("AllowOrigin"); //Debe estar antes de UseMvc
             var environment = Environment.GetEnvironmentVariable("HOST_ENV");
-            var template = "";
-            if(environment == "prod")
-            {
-                template = "prod/api/{controller}/{action=Index}/{id?}";
-            }
-            else if(environment == "dev")
-            {
-                template = "dev/api/{controller}/{action=Index}/{id?}";
-            }
+            var template = environment + "/api/{controller}/{action=Index}/{id?}";
+            //if(environment == "prod")
+            //{
+            //    template = "prod/api/{controller}/{action=Index}/{id?}";
+            //}
+            //else if(environment == "dev")
+            //{
+            //    template = "dev/api/{controller}/{action=Index}/{id?}";
+            //}
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
