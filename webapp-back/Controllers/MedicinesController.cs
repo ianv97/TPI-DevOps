@@ -32,7 +32,7 @@ namespace GestionDeMedicamentos.Controllers
         }
 
         // GET: api/medicamentos/5
-        [HttpGet("{id:int}")]
+        [HttpGet]
         public async Task<IActionResult> GetMedicine([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -51,7 +51,7 @@ namespace GestionDeMedicamentos.Controllers
         }
 
         // PUT: api/medicamentos/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutMedicine([FromRoute] int id, [FromBody] Medicine medicine)
         {
             if (!ModelState.IsValid)
@@ -101,7 +101,7 @@ namespace GestionDeMedicamentos.Controllers
         }
 
         // DELETE: api/medicamentos/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteMedicine([FromRoute] int id)
         {
             if (!ModelState.IsValid)
