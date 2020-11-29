@@ -29,38 +29,6 @@ namespace GestionDeMedicamentos.Migrations
 
                     b.ToTable("Drugs");
                 });
-
-            modelBuilder.Entity("GestionDeMedicamentos.Models.Medicine", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("DrugId");
-
-                    b.Property<string>("Laboratory");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("Presentation");
-
-                    b.Property<decimal>("Proportion");
-
-                    b.Property<long>("Stock");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DrugId");
-
-                    b.ToTable("Medicines");
-                });
-
-            modelBuilder.Entity("GestionDeMedicamentos.Models.Medicine", b =>
-                {
-                    b.HasOne("GestionDeMedicamentos.Models.Drug", "Drug")
-                        .WithMany()
-                        .HasForeignKey("DrugId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
 #pragma warning restore 612, 618
         }
     }

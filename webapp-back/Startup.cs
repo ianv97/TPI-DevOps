@@ -28,7 +28,6 @@ namespace GestiónDeMedicamentos
             });
 
             services.AddScoped<IDrugRepository, DrugRepository>();
-            services.AddScoped<IMedicineRepository, MedicineRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc().AddJsonOptions(op =>

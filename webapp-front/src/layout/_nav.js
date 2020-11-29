@@ -14,11 +14,6 @@ export default {
       name: 'Drogas',
       url: '/drugs',
       icon: 'fas fa-prescription-bottle-alt',
-    },
-    {
-      name: 'Medicamentos',
-      url: '/medicines',
-      icon: 'fas fa-pills',
-    },
+    }
   ],
 };
